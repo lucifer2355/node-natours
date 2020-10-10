@@ -58,6 +58,19 @@ app.post("/api/tours", (req, res) => {
   );
 });
 
+app.patch("/api/tours/:id", (req, res) => {
+  if (req.params.id + 1 > tours.length) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Invalid ID",
+    });
+  }
+
+  res.status(200).json({
+    status: "success",
+  });
+});
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`app running on port ${port}...`);
