@@ -24,12 +24,15 @@ app.get("/api/tours", (req, res) => {
 });
 
 app.get("/api/tours/:id", (req, res) => {
-  const id = req.params.id + 1;
+  const id = req.params.id;
+  console.log(id);
+
   if (id > tours.length) {
     return res.status(404).json({ status: "fail", message: "Invalid ID" });
   }
 
   const tour = tours.find((el) => el.id === id);
+  console.log(tour);
 
   res.status(200).json({
     status: "success",
@@ -59,7 +62,7 @@ app.post("/api/tours", (req, res) => {
 });
 
 app.patch("/api/tours/:id", (req, res) => {
-  if (req.params.id + 1 > tours.length) {
+  if (req.params.id > tours.length) {
     return res.status(404).json({
       status: "fail",
       message: "Invalid ID",
@@ -68,6 +71,23 @@ app.patch("/api/tours/:id", (req, res) => {
 
   res.status(200).json({
     status: "success",
+    data: {
+      tour: "<Update tour here...>",
+    },
+  });
+});
+
+app.delete("/api/tours/:id", (req, res) => {
+  if (req.params.id > tours.length) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Invalid ID",
+    });
+  }
+
+  res.status(204).json({
+    status: "success",
+    data: null,
   });
 });
 
