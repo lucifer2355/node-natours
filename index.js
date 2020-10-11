@@ -5,25 +5,21 @@ const fs = require("fs");
 const app = express();
 app.use(express.json());
 
-// app.get("/", (req, res) => {
-//   res.status(200).json({ message: "Hello Node Projects", app: "natours" });
-// });
-
-// app.post("/", (req, res) => {
-//   res.send("you can post to this endpoint");
-// });
-
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-app.get("/api/tours", (req, res) => {
-  res
-    .status(200)
-    .json({ status: "success", results: tours.length, data: { tours } });
-});
+const getAllTours = (req, res) => {
+  res.status(200).json({
+    status: "success",
+    results: tours.length,
+    data: {
+      tours,
+    },
+  });
+};
 
-app.get("/api/tours/:id", (req, res) => {
+const getTour = (req, res) => {
   const id = req.params.id;
   console.log(id);
 
@@ -40,9 +36,9 @@ app.get("/api/tours/:id", (req, res) => {
       tour,
     },
   });
-});
+};
 
-app.post("/api/tours", (req, res) => {
+const createTour = (req, res) => {
   const newId = tours[tours.length - 1].id + 1;
   const newTour = Object.assign({ id: newId }, req.body);
 
@@ -59,9 +55,9 @@ app.post("/api/tours", (req, res) => {
       });
     }
   );
-});
+};
 
-app.patch("/api/tours/:id", (req, res) => {
+const updateTour = (req, res) => {
   if (req.params.id > tours.length) {
     return res.status(404).json({
       status: "fail",
@@ -75,9 +71,9 @@ app.patch("/api/tours/:id", (req, res) => {
       tour: "<Update tour here...>",
     },
   });
-});
+};
 
-app.delete("/api/tours/:id", (req, res) => {
+const deleteTour = (req, res) => {
   if (req.params.id > tours.length) {
     return res.status(404).json({
       status: "fail",
@@ -89,7 +85,10 @@ app.delete("/api/tours/:id", (req, res) => {
     status: "success",
     data: null,
   });
-});
+};
+
+app.route("/api/tours").get(getAllTours).post(createTour);
+app.route("/api/tours/:id").get(getTour).patch(updateTour).delete(deleteTour);
 
 const port = 3000;
 app.listen(port, () => {
