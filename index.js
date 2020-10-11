@@ -138,11 +138,18 @@ const deleteUser = (req, res) => {
 };
 
 //!ROUTES
-app.route("/api/tours").get(getAllTours).post(createTour);
-app.route("/api/tours/:id").get(getTour).patch(updateTour).delete(deleteTour);
 
-app.route("/api/users").get(getAllUsers).post(createUser);
-app.route("/api/users/:id").get(getUser).patch(updateUser).delete(deleteUser);
+const toursRouter = express.Router();
+const userRouter = express.Router();
+
+app.use("/api/tours", toursRouter);
+app.use("/api/users", userRouter);
+
+toursRouter.route("/").get(getAllTours).post(createTour);
+toursRouter.route("/:id").get(getTour).patch(updateTour).delete(deleteTour);
+
+userRouter.route("/").get(getAllUsers).post(createUser);
+userRouter.route("/").get(getUser).patch(updateUser).delete(deleteUser);
 
 //! START SERVER
 const port = 3000;
