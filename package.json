@@ -23,7 +23,8 @@
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
-    "slugify": "^1.4.5"
+    "slugify": "^1.4.5",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
     "eslint": "^7.11.0",
