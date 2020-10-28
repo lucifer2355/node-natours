@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema({
     validate: [validator.isEmail, "Please provide  valid email"],
   },
   photo: String,
+  role: {
+    type: String,
+    default: "user",
+    enum: {
+      values: ["user", "guide", "lead-guide", "admin"],
+      message: "Role is either: user , guide, lead-guide, admin",
+    },
+  },
   password: {
     type: String,
     required: [true, "Please provide a password"],
