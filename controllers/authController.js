@@ -68,7 +68,8 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //! Verification token
-  const decode = await promisify(jwt.verify(token, process.env.JWT_SECRET));
+
+  const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   //! Check if user is still exists
   const freshUser = await User.findById(decode.id);
