@@ -10,6 +10,12 @@ const sendEmail = async (options) => {
   //     },
   //     //! Activate in gmail 'less secure app' option
   //   });
+  console.log(
+    process.env.EMAIL_HOST,
+    process.env.EMAIL_PORT,
+    process.env.EMAIL_USERNAME,
+    process.env.EMAIL_PASSWORD
+  );
   const transpoter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
@@ -17,7 +23,6 @@ const sendEmail = async (options) => {
       user: process.env.EMAIL_USERNAME,
       pass: process.env.EMAIL_PASSWORD,
     },
-    //! Activate in gmail 'less secure app' option
   });
 
   //! Define the email options
