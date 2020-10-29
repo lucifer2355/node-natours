@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+const { use } = require("../routes/tourRoutes");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -115,6 +116,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     return next(new AppError("There is no user with email address.", 404));
 
   //! Generate the random reset token
+  const resetToken = user.createPasswordResetToken();
+  await user.save();
 
   //! Send it to user's email
 });
