@@ -10,13 +10,8 @@ const sendEmail = async (options) => {
   //     },
   //     //! Activate in gmail 'less secure app' option
   //   });
-  console.log(
-    process.env.EMAIL_HOST,
-    process.env.EMAIL_PORT,
-    process.env.EMAIL_USERNAME,
-    process.env.EMAIL_PASSWORD
-  );
-  const transpoter = nodemailer.createTransport({
+
+  const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {
@@ -27,7 +22,7 @@ const sendEmail = async (options) => {
 
   //! Define the email options
   const mailOptions = {
-    from: "Dhruvil Gajjar <dhruvil@gmail.com>",
+    from: "Dhruvil Gajjar <dgajjar000@gmail.com>",
     to: options.email,
     subject: options.subject,
     text: options.message,
@@ -35,7 +30,7 @@ const sendEmail = async (options) => {
   };
 
   //! Actually send the email
-  await transpoter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions);
 };
 
 module.exports = sendEmail;
