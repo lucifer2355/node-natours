@@ -12,6 +12,8 @@ const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
+router.post("/forgotPassword", login);
+router.post("/resetPassword", login);
 router.route("/").get(getAllUsers).post(createUser);
 router.route("/").get(getUser).patch(updateUser).delete(deleteUser);
 
