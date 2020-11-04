@@ -99,7 +99,8 @@ const toursSchema = new mongoose.Schema(
         day: Number,
       },
     ],
-    guides: Array,
+    // guides: Array,
+    guides: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
   },
   {
     toJSON: { virtuals: true },
@@ -117,12 +118,12 @@ toursSchema.pre("save", function (next) {
   next();
 });
 
-toursSchema.pre("save", async function (next) {
-  const guidesPromies = this.guides.map(async (id) => await User.findById(id));
-  this.guides = await Promise.all(guidesPromies);
+// toursSchema.pre("save", async function (next) {
+//   const guidesPromies = this.guides.map(async (id) => await User.findById(id));
+//   this.guides = await Promise.all(guidesPromies);
 
-  next();
-});
+//   next();
+// });
 
 //! QUERY MIDDLEWARE
 toursSchema.pre(/^find/, function (next) {
