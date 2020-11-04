@@ -132,6 +132,15 @@ toursSchema.pre(/^find/, function (next) {
   next();
 });
 
+toursSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "guides",
+    select: "-__v -passwordChnagedAt",
+  });
+
+  next();
+});
+
 //! AGGREGATION MIDDLEWARE
 toursSchema.pre("aggregate", function (next) {
   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
