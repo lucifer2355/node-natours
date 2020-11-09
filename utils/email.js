@@ -8,7 +8,7 @@ const sendEmail = async (options) => {
   //       user: process.env.EMAIL_USERNAME,
   //       pass: process.env.EMAIL_PASSWORD,
   //     },
-  //     //! Activate in gmail 'less secure app' option
+  //*     Activate in gmail 'less secure app' option
   //   });
 
   const transporter = nodemailer.createTransport({
