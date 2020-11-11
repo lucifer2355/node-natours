@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
-const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const factory = require("./handlerFactory");
+// const catchAsync = require("../utils/catchAsync");
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -10,18 +10,6 @@ const filterObj = (obj, ...allowedFields) => {
   });
   return newObj;
 };
-
-exports.getAllUsers = catchAsync(async (req, res) => {
-  const users = await User.find();
-
-  res.status(500).json({
-    status: "success",
-    results: users.length,
-    data: {
-      users,
-    },
-  });
-});
 
 exports.updateMe = async (req, res, next) => {
   //! Create error if user POSts password data
@@ -59,12 +47,8 @@ exports.deleteMe = async (req, res, next) => {
   });
 };
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: "error",
-    message: "This route is not yet defined!",
-  });
-};
+exports.getAllUsers = factory.getAll(User);
+exports.getUser = factory.getOne(User);
 
 //! DO NOT update password with this!
 exports.updateUser = factory.updateOne(User);
